@@ -1,5 +1,6 @@
 package ca.ualberta.cs.lonelytwitter;
 
+import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -51,8 +52,8 @@ public class LonelyTwitterActivity extends Activity {
 		super.onStart();
 
 		tweets = dataManager.loadTweets();
-		summaryStats.calcNumTweets(tweets);
-		summaryStats.calcAvgLength(tweets);
+		//summaryStats.calcNumTweets(tweets);
+		//summaryStats.calcAvgLength(tweets);
 		tweetsViewAdapter = new ArrayAdapter<Tweet>(this,
 				R.layout.list_item, tweets);
 		oldTweetsList.setAdapter(tweetsViewAdapter);
@@ -61,12 +62,11 @@ public class LonelyTwitterActivity extends Activity {
 	public void save(View v) {
 
 		String text = bodyText.getText().toString();
-
 		Tweet tweet = new Tweet(new Date(), text);
 		tweets.add(tweet);
 
-		summaryStats.calcNumTweets(tweets);
-		summaryStats.calcAvgLength(tweets);
+		//summaryStats.calcNumTweets(tweets);
+		//summaryStats.calcAvgLength(tweets);
 		
 		tweetsViewAdapter.notifyDataSetChanged();
 
@@ -77,15 +77,15 @@ public class LonelyTwitterActivity extends Activity {
 	public void clear(View v) {
 
 		tweets.clear();
-		summaryStats.calcNumTweets(tweets);
-		summaryStats.calcAvgLength(tweets);
+		//summaryStats.calcNumTweets(tweets);
+		//summaryStats.calcAvgLength(tweets);
 		tweetsViewAdapter.notifyDataSetChanged();
 		dataManager.saveTweets(tweets);
 	}
 	
 	public void summary(View v) {
-		Intent startNewActivityOpen = new Intent(LonelyTwitterActivity.this, SummaryActivity.class);
-		startActivityForResult(startNewActivityOpen, 0);
+		Intent startNewActivityOpen = new Intent(getApplicationContext(), SummaryActivity.class);
+		startActivity(startNewActivityOpen);
 	}
 
 }
